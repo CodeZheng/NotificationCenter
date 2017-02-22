@@ -8,8 +8,12 @@
 
 #import "AVPlayerViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "ZXSlider.h"
+
 #define TranslucentGrayColor [UIColor colorWithRed:53.1/255.0 green:45.2/255.0 blue:37.3/255.0 alpha:0.2]
-#define Picture(pictureName) UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)?[UIImage imageNamed:pictureName]:[UIImage imageNamed:[NSString stringWithFormat:@"%@-2",pictureName]]
+#define Picture(pictureName) Portrait?[UIImage imageNamed:pictureName]:[UIImage imageNamed:[NSString stringWithFormat:@"%@-2",pictureName]]
+#define Portrait UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)
+
 
 @interface AVPlayerViewController ()
 @property (nonatomic, strong) AVPlayer *player;
@@ -23,8 +27,10 @@
 @property (nonatomic, assign) BOOL isPlaying;
 @property (nonatomic, strong) UIView *playBtnBackView;
 @property (nonatomic, strong) UIImageView *playImageV;
-@property (nonatomic, strong) UISlider *progressSlider;
-@property (nonatomic, strong) UISlider *soundSlider;
+@property (nonatomic, strong) ZXSlider *progressSlider;
+@property (nonatomic, strong) ZXSlider *soundSlider;
+@property (nonatomic, strong) UILabel *currentTimeLabel;
+@property (nonatomic, strong) UILabel *totalTimeLabel;
 @end
 
 @implementation AVPlayerViewController
@@ -32,7 +38,7 @@
 - (UIView *)playView {
     if (!_playView) {
         CGRect rect = CGRectZero;
-        if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+        if (Portrait) {
             rect = CGRectMake(0, 20, self.view.frame.size.width, 200);
         }else {
             rect = self.view.frame;
@@ -48,7 +54,7 @@
 - (UIView *)toolBarTop {
     if (!_toolBarTop) {
         CGRect rect = CGRectZero;
-        if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+        if (Portrait) {
             rect = CGRectMake(0, 0, self.view.frame.size.width, 30);
             self.backBtn.frame = CGRectMake(5, 0, 30, 30);
         }else {
@@ -65,7 +71,7 @@
 - (UIView *)toolBarBottom {
     if (!_toolBarBottom) {
         CGRect rect = CGRectZero;
-        if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+        if (Portrait) {
             rect = CGRectMake(0, 150, self.view.frame.size.width, 50);
         }else {
             rect = CGRectMake(0, self.view.frame.size.height-70, self.view.frame.size.width, 70);
@@ -94,7 +100,7 @@
     if (!_playPauseBtn) {
         _playPauseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         CGRect rect = CGRectZero;
-        if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+        if (Portrait) {
             rect = CGRectMake(self.view.frame.size.width-70, 100, 30, 30);
         }else {
             rect = CGRectMake(self.view.frame.size.width-90, self.view.frame.size.height-150, 50, 50);
@@ -109,7 +115,7 @@
 - (UIView *)playBtnBackView {
     if (!_playBtnBackView) {
         _playBtnBackView = [UIView new];
-        if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+        if (Portrait) {
             _playBtnBackView.frame = CGRectMake(CGRectGetMinX(self.playPauseBtn.frame)-20, CGRectGetMinY(self.playPauseBtn.frame)-10, 70, 50);
         }else {
             _playBtnBackView.frame = CGRectMake(CGRectGetMinX(self.playPauseBtn.frame)-20, CGRectGetMinY(self.playPauseBtn.frame)-10, 90, 70);
@@ -122,10 +128,10 @@
 - (UIImageView *)playImageV {
     if (!_playImageV) {
         _playImageV = [UIImageView new];
-        if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
-            _playImageV.frame = CGRectMake(10, 10, 30, 30);
+        if (Portrait) {
+            _playImageV.frame = CGRectMake(5, 10, 30, 30);
         }else {
-            _playImageV.frame = CGRectMake(10, 10, 50, 50);
+            _playImageV.frame = CGRectMake(5, 10, 50, 50);
         }
         _playImageV.image = Picture(@"playI");
     }
@@ -134,31 +140,66 @@
 
 - (UISlider *)progressSlider {
     if (!_progressSlider) {
-        _progressSlider = [UISlider new];
-        if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
-            _progressSlider.frame = CGRectMake(50, 10, 150, 30);
+        _progressSlider = [ZXSlider new];
+        if (Portrait) {
+            _progressSlider.frame = CGRectMake(85, 10, 150, 30);
         }else {
-            _progressSlider.frame = CGRectMake(70, 10, 250, 50);
+            _progressSlider.frame = CGRectMake(155, 10, 250, 50);
         }
         [_progressSlider setThumbImage:Picture(@"player_slider_dot") forState:UIControlStateNormal];
+        NSLog(@"progressSlider.Value : %f",_progressSlider.value);
     }
     return _progressSlider;
 }
 
 - (UISlider *)soundSlider {
     if (!_soundSlider) {
-        _soundSlider = [UISlider new];
-        if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
-            _soundSlider.frame = CGRectMake(210, 10, 70, 30);
+        _soundSlider = [ZXSlider new];
+        if (Portrait) {
+            _soundSlider.frame = CGRectMake(295, 10, 70, 30);
         }else {
-            _soundSlider.frame = CGRectMake(330, 10, 100, 50);
+            _soundSlider.frame = CGRectMake(505, 10, 100, 50);
         }
         [_soundSlider setThumbImage:Picture(@"player_slider_dot") forState:UIControlStateNormal];
+        NSLog(@"soundSlider.Value : %f",_soundSlider.value);
     }
     return _soundSlider;
 }
 
+- (UILabel *)currentTimeLabel {
+    if (!_currentTimeLabel) {
+        _currentTimeLabel = [UILabel new];
+        if (Portrait) {
+            _currentTimeLabel.frame = CGRectMake(40, 15, 40, 20);
+        }else {
+            _currentTimeLabel.frame = CGRectMake(65, 15, 80, 40);
+        }
+        _currentTimeLabel.text = @"00:00";
+        _currentTimeLabel.font = [UIFont systemFontOfSize:13];
+        _currentTimeLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _currentTimeLabel;
+}
+
+- (UILabel *)totalTimeLabel {
+    if (!_totalTimeLabel) {
+        _totalTimeLabel = [UILabel new];
+        if (Portrait) {
+            _totalTimeLabel.frame = CGRectMake(245, 15, 40, 20);
+        }else {
+            _totalTimeLabel.frame = CGRectMake(415, 15, 80, 40);
+        }
+        _totalTimeLabel.text = @"24:03";
+        _totalTimeLabel.font = [UIFont systemFontOfSize:13];
+        _totalTimeLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _totalTimeLabel;
+}
+
+
+
 #pragma mark-
+
 - (void)playPauseAction {
     if (self.isPlaying) {
         self.isPlaying = NO;
@@ -220,19 +261,23 @@
     [self.toolBarBottom addSubview:self.playImageV];
     [self.toolBarBottom addSubview:self.progressSlider];
     [self.toolBarBottom addSubview:self.soundSlider];
+    [self.toolBarBottom addSubview:self.currentTimeLabel];
+    [self.toolBarBottom addSubview:self.totalTimeLabel];
 }
 
 - (void)turnOrientation:(NSNotification *)notification {
-    if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+    if (Portrait) {
         self.playView.frame = CGRectMake(0, 20, self.view.frame.size.width, 200);
         self.toolBarTop.frame = CGRectMake(0, 0, self.view.frame.size.width, 30);
         self.toolBarBottom.frame = CGRectMake(0, 150, self.view.frame.size.width, 50);
         self.backBtn.frame = CGRectMake(5, 0, 30, 30);
         _playBtnBackView.frame = CGRectMake(self.view.frame.size.width-90, 90, 70, 50);
         self.playPauseBtn.frame = CGRectMake(self.view.frame.size.width-70, 100, 30, 30);
-        self.playImageV.frame = CGRectMake(10, 10, 30, 30);
-        _soundSlider.frame = CGRectMake(210, 10, 70, 30);
-        _progressSlider.frame = CGRectMake(50, 10, 150, 30);
+        self.playImageV.frame = CGRectMake(5, 10, 30, 30);
+        _soundSlider.frame = CGRectMake(295, 10, 70, 30);
+        _progressSlider.frame = CGRectMake(85, 10, 150, 30);
+        _currentTimeLabel.frame = CGRectMake(40, 15, 40, 20);
+        _totalTimeLabel.frame = CGRectMake(245, 15, 40, 20);
     }else {
         self.playView.frame = self.view.frame;
         self.toolBarTop.frame = CGRectMake(0, 0, self.view.frame.size.width, 50);
@@ -240,9 +285,11 @@
         self.backBtn.frame = CGRectMake(5, 0, 50, 50);
         _playBtnBackView.frame = CGRectMake(self.view.frame.size.width-110, self.view.frame.size.height-160, 90, 70);
         self.playPauseBtn.frame = CGRectMake(self.view.frame.size.width-90, self.view.frame.size.height-150, 50, 50);
-        self.playImageV.frame = CGRectMake(10, 10, 50, 50);
-        _soundSlider.frame = CGRectMake(330, 10, 100, 50);
-        _progressSlider.frame = CGRectMake(70, 10, 250, 50);
+        self.playImageV.frame = CGRectMake(5, 10, 50, 50);
+        _soundSlider.frame = CGRectMake(505, 10, 100, 50);
+        _progressSlider.frame = CGRectMake(155, 10, 250, 50);
+        _currentTimeLabel.frame = CGRectMake(65, 15, 80, 40);
+        _totalTimeLabel.frame = CGRectMake(415, 15, 80, 40);
     }
 
     self.isPlaying ? [self.playPauseBtn setImage:Picture(@"pause") forState:UIControlStateNormal] : [self.playPauseBtn setImage:Picture(@"play") forState:UIControlStateNormal];

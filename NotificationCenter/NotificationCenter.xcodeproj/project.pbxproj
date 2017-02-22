@@ -29,6 +29,7 @@
 		842792FC1E56ABB100AC9DB2 /* AVPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842792F51E56ABB100AC9DB2 /* AVPlayerViewController.m */; };
 		842792FD1E56ABB100AC9DB2 /* DrawCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 842792F71E56ABB100AC9DB2 /* DrawCircleView.m */; };
 		842792FE1E56ABB100AC9DB2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 842792F81E56ABB100AC9DB2 /* Main.storyboard */; };
+		849544671E5D6CB8001BE9BC /* ZXSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 849544661E5D6CB8001BE9BC /* ZXSlider.m */; };
 		8498218D1E5ACA100040F516 /* player_slider_dot-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8498218B1E5ACA100040F516 /* player_slider_dot-2.png */; };
 		8498218E1E5ACA100040F516 /* player_slider_dot.png in Resources */ = {isa = PBXBuildFile; fileRef = 8498218C1E5ACA100040F516 /* player_slider_dot.png */; };
 /* End PBXBuildFile section */
@@ -84,6 +85,8 @@
 		842792F61E56ABB100AC9DB2 /* DrawCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawCircleView.h; sourceTree = "<group>"; };
 		842792F71E56ABB100AC9DB2 /* DrawCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawCircleView.m; sourceTree = "<group>"; };
 		842792F81E56ABB100AC9DB2 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		849544651E5D6CB8001BE9BC /* ZXSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXSlider.h; sourceTree = "<group>"; };
+		849544661E5D6CB8001BE9BC /* ZXSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXSlider.m; sourceTree = "<group>"; };
 		8498218B1E5ACA100040F516 /* player_slider_dot-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "player_slider_dot-2.png"; sourceTree = "<group>"; };
 		8498218C1E5ACA100040F516 /* player_slider_dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player_slider_dot.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -146,6 +149,8 @@
 				842792F51E56ABB100AC9DB2 /* AVPlayerViewController.m */,
 				842792F61E56ABB100AC9DB2 /* DrawCircleView.h */,
 				842792F71E56ABB100AC9DB2 /* DrawCircleView.m */,
+				849544651E5D6CB8001BE9BC /* ZXSlider.h */,
+				849544661E5D6CB8001BE9BC /* ZXSlider.m */,
 				842792F81E56ABB100AC9DB2 /* Main.storyboard */,
 				842792D71E56AB9700AC9DB2 /* Icon */,
 				842792B01E56AB8D00AC9DB2 /* Assets.xcassets */,
@@ -356,6 +361,7 @@
 				842792FB1E56ABB100AC9DB2 /* SecondViewController.m in Sources */,
 				842792FA1E56ABB100AC9DB2 /* ViewController.m in Sources */,
 				842792F91E56ABB100AC9DB2 /* AppDelegate.m in Sources */,
+				849544671E5D6CB8001BE9BC /* ZXSlider.m in Sources */,
 				842792A61E56AB8D00AC9DB2 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
